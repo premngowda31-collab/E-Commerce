@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mysuru Fashion | Product Details</title>
+
+<link rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ✅ YOUR UI UNCHANGED */
+
+body{
+background:#000;
+color:white;
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+}
+
+.bg-slideshow{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-3;
+}
+
+.bg-slideshow img{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+animation:slideShow 36s infinite;
+}
+
+.bg-slideshow img:nth-child(1){animation-delay:0s}
+.bg-slideshow img:nth-child(2){animation-delay:6s}
+.bg-slideshow img:nth-child(3){animation-delay:12s}
+.bg-slideshow img:nth-child(4){animation-delay:18s}
+.bg-slideshow img:nth-child(5){animation-delay:24s}
+.bg-slideshow img:nth-child(6){animation-delay:30s}
+
+@keyframes slideShow{
+0%{opacity:0;transform:scale(1.15)}
+5%{opacity:1}
+20%{opacity:1;transform:scale(1)}
+25%{opacity:0}
+100%{opacity:0}
+}
+
+.bg-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.65);
+z-index:-2;
+}
+
+.navbar{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+padding:15px 30px;
+}
+
+.glass{
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(18px);
+border-radius:20px;
+padding:30px;
+}
+
+.img-box{
+overflow:hidden;
+border-radius:15px;
+}
+.img-box img{
+width:100%;
+transition:0.5s;
+}
+.img-box:hover img{
+transform:scale(1.1);
+}
+
+.title{
+font-family:'Playfair Display';
+font-size:30px;
+}
+.price{
+font-size:24px;
+color:#ffc107;
+font-weight:600;
+}
+
+.size-btn{
+border:1px solid white;
+padding:6px 14px;
+border-radius:20px;
+cursor:pointer;
+margin-right:10px;
+}
+.size-btn.active{
+background:#ff416c;
+}
+
+.color{
+width:25px;
+height:25px;
+border-radius:50%;
+display:inline-block;
+margin-right:10px;
+cursor:pointer;
+border:2px solid white;
+}
+
+.qty-box{
+display:flex;
+align-items:center;
+}
+.qty-box button{
+width:35px;
+height:35px;
+border:none;
+background:#ff4b2b;
+color:white;
+}
+.qty-box input{
+width:60px;
+text-align:center;
+}
+
+.cart-btn{
+background:linear-gradient(45deg,#ff416c,#ff4b2b);
+border:none;
+border-radius:30px;
+padding:12px 30px;
+color:white;
+}
+.cart-btn:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px #ff4b2b;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bg-slideshow">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b">
+<img src="https://images.unsplash.com/photo-1445205170230-053b83016050">
+<img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070">
+<img src="https://images.unsplash.com/photo-1520974735194-6b9b0f7d7a6c">
+<img src="https://images.unsplash.com/photo-1520975922284-9d8c7a2e3f4c">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+</div>
+
+<div class="bg-overlay"></div>
+
+<nav class="navbar navbar-expand-lg">
+<a class="navbar-brand text-white" href="index.html">Mysuru Fashion</a>
+<div class="ml-auto">
+<a href="category.html" class="text-white mr-3">Categories</a>
+<a href="cart.html" class="text-white">
+<i class="fas fa-shopping-cart"></i>
+</a>
+</div>
+</nav>
+
+<div class="container py-5">
+
+<div class="row glass">
+
+<div class="col-md-6">
+<div class="img-box">
+<img id="productImage">
+</div>
+</div>
+
+<div class="col-md-6">
+
+<h2 class="title" id="productName">Product</h2>
+<p class="price" id="productPrice">₹0</p>
+
+<p>
+Experience premium Mysuru Fashion quality designed for elegance and comfort.
+</p>
+
+<h6>Select Size</h6>
+<div class="mb-3">
+<span class="size-btn" onclick="selectSize(this)">S</span>
+<span class="size-btn active" onclick="selectSize(this)">M</span>
+<span class="size-btn" onclick="selectSize(this)">L</span>
+<span class="size-btn" onclick="selectSize(this)">XL</span>
+</div>
+
+<h6>Select Color</h6>
+<div class="mb-3">
+<span class="color" style="background:black" onclick="selectColor(this)"></span>
+<span class="color" style="background:red" onclick="selectColor(this)"></span>
+<span class="color" style="background:blue" onclick="selectColor(this)"></span>
+<span class="color" style="background:white" onclick="selectColor(this)"></span>
+</div>
+
+<h6>Quantity</h6>
+<div class="qty-box mb-4">
+<button onclick="changeQty(-1)">-</button>
+<input type="number" id="qty" value="1">
+<button onclick="changeQty(1)">+</button>
+</div>
+
+<button class="cart-btn" onclick="addToCart()">Add to Cart</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+/* 🔥 FIXED SOURCE (FROM product.html) */
+let product = JSON.parse(localStorage.getItem("selectedProduct")) || {};
+
+let name = product.name || "Product";
+let basePrice = parseInt(product.price) || 0;
+let img = product.image || "https://via.placeholder.com/400";
+
+/* DEFAULT */
+let selectedSize = "M";
+let selectedColor = "black";
+
+/* SET DATA */
+document.getElementById("productName").innerText = name;
+document.getElementById("productImage").src = img;
+
+/* 🔥 PRICE ENGINE */
+function calculatePrice(){
+
+let qty = parseInt(document.getElementById("qty").value) || 1;
+
+let sizeMul = {
+"S":1,
+"M":1.1,
+"L":1.2,
+"XL":1.3
+}[selectedSize] || 1;
+
+let colorExtra = {
+"black":0,
+"red":50,
+"blue":30,
+"white":20
+}[selectedColor] || 0;
+
+let final = (basePrice * sizeMul + colorExtra) * qty;
+
+document.getElementById("productPrice").innerText =
+"₹" + Math.round(final);
+}
+
+/* SIZE */
+function selectSize(el){
+document.querySelectorAll(".size-btn").forEach(b=>b.classList.remove("active"));
+el.classList.add("active");
+selectedSize = el.innerText;
+calculatePrice();
+}
+
+/* COLOR */
+function selectColor(el){
+document.querySelectorAll(".color").forEach(c=>c.style.border="2px solid white");
+el.style.border="2px solid yellow";
+selectedColor = el.style.background;
+calculatePrice();
+}
+
+/* QTY */
+function changeQty(v){
+let q=document.getElementById("qty");
+let val=parseInt(q.value)||1;
+if(val+v>=1){
+q.value=val+v;
+calculatePrice();
+}
+}
+
+/* CART */
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+function addToCart(){
+
+let qty=parseInt(document.getElementById("qty").value)||1;
+
+let finalPrice=parseInt(
+document.getElementById("productPrice").innerText.replace("₹","")
+);
+
+let existing=cart.find(i=>i.name===name);
+
+if(existing){
+existing.qty+=qty;
+}else{
+cart.push({
+name,
+price:finalPrice,
+image:img,
+qty,
+size:selectedSize,
+color:selectedColor
+});
+}
+
+localStorage.setItem("cart",JSON.stringify(cart));
+alert("Added to cart!");
+}
+
+/* INIT */
+window.onload = calculatePrice;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+```html id="final-premium-search"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search | Mysuru Fashion</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+
+body{
+background:#000;
+font-family:'Poppins',sans-serif;
+overflow-x:hidden;
+}
+
+/* 🎬 BACKGROUND */
+.bg-slideshow{
+position:fixed; width:100%; height:100%; z-index:-3;
+}
+.bg-slide{
+position:absolute; width:100%; height:100%;
+background-size:cover; background-position:center;
+opacity:0; animation:slide 20s infinite;
+}
+.bg-slide:nth-child(1){background-image:url('https://images.unsplash.com/photo-1521334884684-d80222895322');}
+.bg-slide:nth-child(2){background-image:url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f'); animation-delay:5s;}
+.bg-slide:nth-child(3){background-image:url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d'); animation-delay:10s;}
+.bg-slide:nth-child(4){background-image:url('https://images.unsplash.com/photo-1483985988355-763728e1935b'); animation-delay:15s;}
+
+@keyframes slide{
+0%{opacity:0;} 10%{opacity:1;} 25%{opacity:1;} 35%{opacity:0;} 100%{opacity:0;}
+}
+
+body::before{
+content:""; position:fixed; width:100%; height:100%;
+background:rgba(0,0,0,0.75); z-index:-2;
+}
+
+/* NAVBAR */
+.navbar{
+background:rgba(0,0,0,0.6);
+display:flex; justify-content:space-between;
+padding:15px 40px;
+}
+.navbar-brand{
+color:#d4af37!important; font-size:26px;
+}
+.home-btn{
+background:linear-gradient(45deg,#d4af37,#f5c518);
+padding:8px 18px; border-radius:30px;
+color:black; font-weight:500;
+transition:0.3s;
+}
+.home-btn:hover{ transform:scale(1.1); }
+
+/* GLASS */
+.search-container{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(20px);
+padding:40px; border-radius:15px;
+}
+
+/* 🔍 SEARCH */
+#searchInput{
+height:50px;
+border-radius:30px;
+background:rgba(255,255,255,0.1);
+color:white;
+border:none;
+outline:none;
+box-shadow:0 0 0 rgba(212,175,55,0);
+transition:0.3s;
+}
+#searchInput:focus{
+box-shadow:0 0 15px #d4af37;
+}
+
+/* 💡 SUGGESTIONS */
+.suggestions{
+background:black;
+position:absolute;
+width:100%;
+border-radius:10px;
+display:none;
+z-index:10;
+}
+.suggestion{
+padding:10px; color:white;
+cursor:pointer;
+}
+.suggestion:hover{ background:#222; }
+
+/* 💰 RANGE */
+.range-box{ color:white; margin:20px 0; }
+
+/* PRODUCT */
+.product-card{
+background:rgba(255,255,255,0.05);
+padding:15px; border-radius:15px;
+cursor:pointer; transition:0.4s;
+}
+.product-card:hover{
+transform:translateY(-8px) scale(1.02);
+}
+.product-card img{
+width:100%; border-radius:10px;
+}
+.price{ color:#d4af37; }
+
+/* EMPTY */
+.empty-state{ text-align:center; color:#aaa; margin-top:80px; }
+
+/* LOADER */
+#loader{
+position:fixed; width:100%; height:100%;
+background:black; display:flex;
+justify-content:center; align-items:center;
+flex-direction:column; z-index:9999;
+}
+.spinner{
+width:50px;height:50px;
+border:4px solid rgba(255,255,255,0.2);
+border-top:4px solid #d4af37;
+border-radius:50%;
+animation:spin 1s infinite linear;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg-slideshow">
+<div class="bg-slide"></div>
+<div class="bg-slide"></div>
+<div class="bg-slide"></div>
+<div class="bg-slide"></div>
+</div>
+
+<div id="loader">
+<h2 style="color:#d4af37;">Mysuru Fashion</h2>
+<div class="spinner"></div>
+</div>
+
+<nav class="navbar">
+<a class="navbar-brand" href="product.html">Mysuru Fashion</a>
+<a href="index.html" class="home-btn"><i class="fas fa-home"></i> Home</a>
+</nav>
+
+<section class="py-5">
+<div class="container">
+<div class="search-container">
+
+<input type="text" id="searchInput" class="form-control mb-2"
+placeholder="Search premium styles...">
+
+<div id="suggestions" class="suggestions"></div>
+
+<!-- 💰 RANGE -->
+<div class="range-box">
+Min ₹<span id="minVal">300</span> - Max ₹<span id="maxVal">5000</span>
+<input type="range" id="minPrice" min="300" max="5000" value="300">
+<input type="range" id="maxPrice" min="300" max="5000" value="5000">
+</div>
+
+<div id="productGrid" class="row"></div>
+
+<div id="emptyState" class="empty-state">
+<h5>Start typing to search products</h5>
+</div>
+
+</div>
+</div>
+</section>
+
+<script>
+
+let productsData = JSON.parse(localStorage.getItem("allProducts")) || [];
+let debounce;
+
+/* RENDER */
+function render(list){
+let grid=document.getElementById("productGrid");
+let empty=document.getElementById("emptyState");
+
+if(list.length===0){
+grid.innerHTML="";
+empty.style.display="block";
+empty.innerHTML="<h5>No products found</h5>";
+return;
+}
+
+empty.style.display="none";
+
+grid.innerHTML=list.map(p=>`
+<div class="col-md-4 mb-4">
+<div class="product-card" onclick="openProduct('${p.name}',${p.price},'${p.img}')">
+<img src="${p.img}">
+<h5 class="text-white">${p.name}</h5>
+<p class="price">₹${p.price}</p>
+
+<button class="btn btn-warning btn-sm"
+onclick="addToCart(event,'${p.name}',${p.price},'${p.img}')">
+Add
+</button>
+
+</div>
+</div>`).join("");
+}
+
+/* FILTER */
+function filter(){
+let text=searchInput.value.toLowerCase();
+let min=+minPrice.value;
+let max=+maxPrice.value;
+
+if(text===""){
+productGrid.innerHTML="";
+emptyState.style.display="block";
+return;
+}
+
+let filtered=productsData.filter(p=>{
+let name=p.name.toLowerCase();
+return name.includes(text) && p.price>=min && p.price<=max;
+});
+
+render(filtered);
+
+/* SUGGEST */
+let sug=document.getElementById("suggestions");
+sug.innerHTML="";
+if(text){
+filtered.slice(0,5).forEach(p=>{
+let d=document.createElement("div");
+d.className="suggestion";
+d.innerText=p.name;
+d.onclick=()=>{
+searchInput.value=p.name;
+filter();
+};
+sug.appendChild(d);
+});
+sug.style.display="block";
+}else{
+sug.style.display="none";
+}
+}
+
+/* DEBOUNCE */
+searchInput.addEventListener("keyup",()=>{
+clearTimeout(debounce);
+debounce=setTimeout(filter,250);
+});
+
+/* RANGE */
+minPrice.oninput=()=>{minVal.innerText=minPrice.value; filter();}
+maxPrice.oninput=()=>{maxVal.innerText=maxPrice.value; filter();}
+
+/* CART ANIMATION */
+function addToCart(e,name,price,img){
+e.stopPropagation();
+
+let btn=e.target;
+let clone=btn.cloneNode(true);
+clone.style.position="absolute";
+clone.style.top=btn.getBoundingClientRect().top+"px";
+clone.style.left=btn.getBoundingClientRect().left+"px";
+clone.style.transition="1s";
+document.body.appendChild(clone);
+
+setTimeout(()=>{
+clone.style.top="0px";
+clone.style.left="90%";
+clone.style.opacity="0";
+},10);
+
+setTimeout(()=>clone.remove(),1000);
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+cart.push({name,price,img});
+localStorage.setItem("cart",JSON.stringify(cart));
+}
+
+/* OPEN */
+function openProduct(n,p,i){
+localStorage.setItem("selectedProduct",JSON.stringify({name:n,price:p,image:i}));
+window.location.href="product_details.html";
+}
+
+/* LOAD */
+window.onload=()=>{
+setTimeout(()=>loader.style.display="none",1000);
+};
+
+</script>
+
+</body>
+</html>
+```

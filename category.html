@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Mysuru Fashion - Categories</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<style>
+
+/* PREMIUM BACKGROUND */
+.bg-slideshow{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-3;
+overflow:hidden;
+}
+
+.bg-slideshow img{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0;
+animation:premiumSlide 36s infinite;
+}
+
+.bg-slideshow img:nth-child(1){animation-delay:0s}
+.bg-slideshow img:nth-child(2){animation-delay:6s}
+.bg-slideshow img:nth-child(3){animation-delay:12s}
+.bg-slideshow img:nth-child(4){animation-delay:18s}
+.bg-slideshow img:nth-child(5){animation-delay:24s}
+.bg-slideshow img:nth-child(6){animation-delay:30s}
+
+@keyframes premiumSlide{
+0%{opacity:0;transform:scale(1.15)}
+5%{opacity:1}
+20%{opacity:1;transform:scale(1)}
+25%{opacity:0}
+100%{opacity:0}
+}
+
+.bg-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.65);
+z-index:-2;
+}
+
+/* NAVBAR */
+.navbar{
+background:rgba(0,0,0,0.9);
+padding:12px 30px;
+}
+
+.navbar-brand{
+font-size:24px;
+font-weight:600;
+color:white;
+}
+
+.about-btn{
+margin-left:20px;
+padding:6px 16px;
+border-radius:25px;
+background:linear-gradient(45deg,#ff416c,#ff4b2b);
+color:white;
+text-decoration:none;
+}
+
+/* CATEGORY CARDS */
+.single_product{
+transition:0.4s;
+cursor:pointer;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+border-radius:15px;
+}
+
+.single_product:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+body{
+color:white;
+}
+
+.products{
+background:transparent !important;
+}
+
+h1{
+color:white;
+}
+
+a{
+text-decoration:none;
+color:inherit;
+}
+
+</style>
+
+</head>
+
+<body id="top">
+
+<!-- BACKGROUND -->
+<div class="bg-slideshow">
+<img src="https://images.unsplash.com/photo-1483985988355-763728e1935b">
+<img src="https://images.unsplash.com/photo-1445205170230-053b83016050">
+<img src="https://images.unsplash.com/photo-1520975661595-6453be3f7070">
+<img src="https://wallpapercave.com/wp/1sW2Unb.jpg">
+<img src="https://tse2.mm.bing.net/th/id/OIP.FEyVR9JhG9_YYZ3VI0v44gAAAA?pid=Api&P=0&h=180">
+<img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c">
+</div>
+
+<div class="bg-overlay"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+<a class="navbar-brand" href="index.html">Mysuru Fashion</a>
+
+<div class="ml-auto d-flex align-items-center">
+<a href="index.html" class="text-white mr-3">Home</a>
+<a href="about_us.html" class="about-btn">About Us</a>
+<a href="cart.html" class="text-white ml-3">
+<i class="fas fa-shopping-cart"></i>
+</a>
+</div>
+</nav>
+
+<!-- CATEGORIES -->
+<section class="products py-5">
+<div class="container">
+
+<div class="text-center mb-5">
+<h1>Our Categories</h1>
+</div>
+
+<div class="row">
+
+<!-- MEN -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=men">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.eFTIXS9QhO-3y_Anue4ERgHaEK" class="img-fluid rounded">
+<h4 class="mt-3">Men's Elite Wear</h4>
+<p>Premium suits & designer outfits</p>
+</div>
+</a>
+</div>
+
+<!-- WOMEN -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=women">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.PmgmKmbLaqb3BlMoGkUO4QHaE8?pid=Api&rs=1&c=1&qlt=95&w=162&h=108" class="img-fluid rounded">
+<h4 class="mt-3">Women's Couture</h4>
+<p>Luxury fashion for modern elegance</p>
+</div>
+</a>
+</div>
+
+<!-- ACCESSORIES -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=accessories">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.mqleH1pWV9k_8ezTFjsEtQHaHa" class="img-fluid rounded">
+<h4 class="mt-3">Accessories</h4>
+<p>Complete your premium look</p>
+</div>
+</a>
+</div>
+
+<!-- FOOTWEAR -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=footwear">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.Mjp1Equr3YtEI9UPANDuBAHaE7" class="img-fluid rounded">
+<h4 class="mt-3">Luxury Footwear</h4>
+<p>Step into style & comfort</p>
+</div>
+</a>
+</div>
+
+<!-- WATCHES -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=watches">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.i-RwGEMD4D_1vTADOjJQgAHaEO" class="img-fluid rounded">
+<h4 class="mt-3">Premium Watches</h4>
+<p>Timeless elegance & class</p>
+</div>
+</a>
+</div>
+
+<!-- STREET -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=street">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.IUUOTHZ4xJ1QT3K1I0XzUwHaLH" class="img-fluid rounded">
+<h4 class="mt-3">Street Luxe</h4>
+<p>Urban luxury fashion trends</p>
+</div>
+</a>
+</div>
+
+<!-- ETHNIC -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=ethnic">
+<div class="single_product text-center p-3">
+<img src="https://up.yimg.com/ib/th/id/OIP.sHvI9YgqTkgYs1fFcOQjKgHaEK" class="img-fluid rounded">
+<h4 class="mt-3">Ethnic Royal</h4>
+<p>Traditional meets luxury</p>
+</div>
+</a>
+</div>
+
+<!-- BAGS -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=bags">
+<div class="single_product text-center p-3">
+<img src="https://sp.yimg.com/ib/th?id=OPAC.3ojomL1Byah0Vg474C474" class="img-fluid rounded">
+<h4 class="mt-3">Designer Bags</h4>
+<p>Carry style everywhere</p>
+</div>
+</a>
+</div>
+
+<!-- KIDS -->
+<div class="col-md-4 mb-4">
+<a href="product.html?category=kids">
+<div class="single_product text-center p-3">
+<img src="https://sp.yimg.com/ib/th?id=OPAC.wCTGqDsuemoA6Q474C474" class="img-fluid rounded">
+<h4 class="mt-3">Kids Luxury</h4>
+<p>Premium fashion for kids</p>
+</div>
+</a>
+</div>
+
+</div>
+</div>
+</section>
+
+<footer class="text-center p-4 bg-dark text-white">
+© 2026 Mysuru Fashion • Luxury Experience
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
